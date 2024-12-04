@@ -1,0 +1,45 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+        "MyPermissionSet": {
+            "Type": "AWS::SSO::PermissionSet",
+            "Properties": {
+                "Name": "Identity-Admin-PS",
+                "Description": "Permission set with EC2, RDS, and CloudFront full access for BMS Identity team",
+                "InstanceArn": "arn:aws:sso:::instance/ssoins-72230474199eb9af",
+                "CustomerManagedPolicyReferences": [
+                    {
+                        "Name": "CustomIdentityAllowPolicy1"
+                    },
+                    {
+                        "Name": "CustomIdentityAllowPolicy2"
+                    },
+                    {
+                        "Name": "CustomIdentityDenyPolicy1"
+                    },
+                    {
+                        "Name": "CustomIdentityIPRestrictionPolicy1"
+                    }
+                ],
+                "ManagedPolicies": [
+                    "arn:aws:iam::aws:policy/ReadOnlyAccess"
+                ],
+                "SessionDuration": "PT8H",
+                "Tags": [
+                    {
+                        "Key": "Contact",
+                        "Value": "kshitij.palria@bms.com"
+                    },
+                    {
+                        "Key": "Creator",
+                        "Value": "palriak"
+                    },
+                    {
+                        "Key": "StackName",
+                        "Value": "BMS-Identity-PermissionSet"
+                    }
+                ]
+            }
+        }
+    }
+}

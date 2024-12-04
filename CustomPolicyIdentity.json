@@ -1,0 +1,93 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "CustomIdentityAllowPolicy1": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": ["ec2:*", "wafv2:*", "cloudfront:*", "autoscaling:*","cloudformation:*","cloudwatch:*","ssm:*","acm:*","secretmanager:*","s3:*","sns:*","sqs:*"],
+              "Resource": "*"
+            }
+          ]
+        },
+        "ManagedPolicyName": "CustomIdentityAllowPolicy1"
+      }
+    },
+    "CustomIdentityAllowPolicy2": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "cloudformation:ListStacks",
+                "cloudformation:ListStackResources",
+                "cloudformation:ListStackSetOperations",
+                "cloudformation:ListStackSets",
+                "cloudformation:ListChangeSets"
+              ],
+              "Resource": "*"
+            }
+          ]
+        },
+        "ManagedPolicyName": "CustomIdentityAllowPolicy2"
+      }
+    },
+    "CustomIdentityIPRestrictionPolicy1": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Condition": {
+                "NotIpAddress": {
+                  "aws:SourceIp": [
+                    "165.89.0.0/16",
+                    "140.176.0.0/16",
+                    "158.117.0.0/16",
+                    "198.155.0.0/16",
+                    "35.168.231.224/28",
+                    "18.217.41.176/28",
+                    "54.164.67.177/32",
+                    "54.210.84.95/32"
+                  ]
+                }
+              },
+              "Action": "*",
+              "Resource": "*",
+              "Effect": "Deny"
+            }
+          ]
+        },
+        "ManagedPolicyName": "CustomIdentityIPRestrictionPolicy1"
+      }
+    },
+    "CustomIdentityDenyPolicy1": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Deny",
+              "Action": [
+                "iam:Create*",
+                "iam:Delete*"
+            
+            ],
+              "Resource": "*"
+            }
+          ]
+        },
+        "ManagedPolicyName": "CustomIdentityDenyPolicy1"
+      }
+    }
+  }
+}
